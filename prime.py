@@ -93,7 +93,7 @@ class PrimeCollection():
         '''
         def NewPrimes():
             while True:
-                yield next(self)
+                yield self.__next__()
 
         return itertools.chain(self.cache, NewPrimes())
 
