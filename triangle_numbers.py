@@ -16,8 +16,6 @@ def TriangleNumbers():
     #return map(TriangleNumber, count(1))
     return accumulate(count(1))
 
-assert(CollectionsEqual(FirstN(TriangleNumbers(), 10), (1, 3, 6, 10, 15, 21, 28, 36, 45, 55)))
-
 def IsTriangleNumber(number):
     last = None
 
