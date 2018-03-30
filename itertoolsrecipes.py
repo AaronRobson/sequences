@@ -24,15 +24,13 @@ def FirstN(generator, n=None):
     '''Developed from: http://wiki.python.org/moin/Generators
     http://linuxgazette.net/100/pramode.html
     '''
-    if n != None:
-        iter = generator.__iter__()
-        for i in range(n):
-            try:
-                yield next(iter)
-            except StopIteration:
-                raise DifferentLengthsError('Requested amount exceeds the number in the iteration.')
+    if n is not None:
+        result = take(n, generator)
+        if len(result) < n:
+            raise DifferentLengthsError('Requested amount exceeds the number in the iteration.')
+        return result
     else:
-        yield from generator
+        return generator
 
 def SkipFirstN(generator, n=None):
     return islice(generator, n, None)
