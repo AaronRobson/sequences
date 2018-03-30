@@ -1,6 +1,5 @@
 from itertools import count, accumulate
 
-from itertoolsrecipes import FirstN, CollectionsEqual
 from exceed import UntilExceeded
 
 def HexagonalNumber(n):
