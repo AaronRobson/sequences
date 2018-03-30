@@ -9,7 +9,9 @@ import primeGUI
 oddNum = 3
 evenNum = 12
 
+
 class TestSupport(unittest.TestCase):
+
     def setUp(self):
         self.support = prime
 
@@ -32,7 +34,9 @@ class TestSupport(unittest.TestCase):
         self.assertFalse(self.support.IsDivisable(3,2), '')
         self.assertFalse(self.support.IsDivisable(2,0), 'Division by zero should be treated as not divisable.')
 
+
 class TestPrime(unittest.TestCase):
+
     def setUp(self):
         self.support = prime
         self.firstPrimes = (2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71)
@@ -98,7 +102,6 @@ class TestPrime(unittest.TestCase):
 
     def testLeastCommonMultiple(self):
         self.assertEqual(self.support.LeastCommonMultiple(range(1, 10+1)), 2520, 'LeastCommonMultiple Fail: 1 to 10.')
-
         self.assertEqual(self.support.LeastCommonMultiple(range(1, 20+1)), 232792560, 'LeastCommonMultiple Fail: 1 to 20.')
 
 

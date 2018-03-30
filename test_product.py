@@ -4,6 +4,7 @@ import unittest
 
 from product import product
 
+
 class TestProduct(unittest.TestCase):
 
     def testNullCase(self):
