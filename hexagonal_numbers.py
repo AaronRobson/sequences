@@ -1,4 +1,4 @@
-from itertools import count, accumulate
+from itertools import count
 
 from exceed import UntilExceeded
 

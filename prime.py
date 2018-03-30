@@ -204,11 +204,13 @@ def Factors(number):
         items = tuple(items)
 
         for lengths in range(1, len(items)+1):
-            yield from itertools.combinations(items, lengths)
+            for item in itertools.combinations(items, lengths):
+                yield item
 
     yield 1
     if number != 1:
-        yield from sorted(set(map(product, CombinationsWithDuplicates(PrimeFactors(number)))))
+        for item in sorted(set(map(product, CombinationsWithDuplicates(PrimeFactors(number))))):
+            yield item
 
 def HighestFactors(numbers):
     '''Similar to an intersection of the sets of the prime factors of each of the numbers in a sequence.
