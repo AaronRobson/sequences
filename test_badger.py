@@ -1,13 +1,9 @@
 #!/usr/bin/python
 
-from itertools import islice
 import unittest
 
 import badger
-
-def take(n, iterable):
-    "Return first n items of the iterable as a list"
-    return list(islice(iterable, n))
+from itertoolsrecipes import take
 
 class TestBadger(unittest.TestCase):
 
