@@ -20,6 +20,11 @@ except ImportError:
             total = func(total, element)
             yield total
 
+try:
+    from itertools import imap as map
+except ImportError:
+    pass
+
 #http://en.wikipedia.org/wiki/Harmonic_number
 
 def Reciprocal(number):
