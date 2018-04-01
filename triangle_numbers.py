@@ -19,6 +19,11 @@ except ImportError:
             total = func(total, element)
             yield total
 
+try:
+    from itertools import imap as map
+except ImportError:
+    pass
+
 from exceed import UntilExceeded
 
 def TriangleNumber(n):
