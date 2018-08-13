@@ -58,7 +58,12 @@ class TestPrime(unittest.TestCase):
 
     def testNthPrime(self):
         self.assertEqual(prime.NthPrime(1), 2)
-        self.assertEqual(prime.NthPrime(10001), 104743)
+        self.assertEqual(prime.NthPrime(2), 3)
+        self.assertEqual(prime.NthPrime(3), 5)
+        self.assertEqual(prime.NthPrime(4), 7)
+        self.assertEqual(prime.NthPrime(5), 11)
+        self.assertEqual(prime.NthPrime(6), 13)
+        self.assertEqual(prime.NthPrime(7), 17)
 
     def testIsPrime(self):
         self.assertTrue(self.support.IsPrime(2), '')
