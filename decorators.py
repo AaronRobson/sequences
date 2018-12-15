@@ -29,11 +29,6 @@ class memoised(object):
         '''
         return self.func.__doc__
 
-    def __get__(self, obj, objtype):
-        '''Support instance methods.
-        '''
-        return functools.partial(self.__call__, obj)
-
 
 # Alternate U.S. spelling.
 memoized = memoised
