@@ -2,7 +2,6 @@
 
 import unittest
 import prime
-import primeGUI
 
 oddNum = 3
 evenNum = 12

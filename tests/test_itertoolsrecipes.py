@@ -18,7 +18,8 @@ class TestFirstNClass(unittest.TestCase):
         self.ex = self.support.DifferentLengthsError
 
     def testFirstN(self):
-        FirstNFixed = lambda *a: tuple(self.support.FirstN(*a))
+        def FirstNFixed(*a):
+            return tuple(self.support.FirstN(*a))
 
         self.assertEqual(
             FirstNFixed(range(5), 3),
@@ -36,7 +37,8 @@ class TestFirstNClass(unittest.TestCase):
             'FirstN Fail: just outside range.')
 
     def testSkipFirstN(self):
-        SkipFirstNFixed = lambda *a: tuple(self.support.SkipFirstN(*a))
+        def SkipFirstNFixed(*a):
+            return tuple(self.support.SkipFirstN(*a))
 
         self.assertEqual(
             SkipFirstNFixed(range(5)),
@@ -70,8 +72,8 @@ class TestFirstNClass(unittest.TestCase):
             'NthTerm Fail: just out of range.')
 
     def testZipErrorIfDifferentLengths(self):
-        ZipErrorIfDifferentLengthsFixed = lambda *a: tuple(
-            self.support.ZipErrorIfDifferentLengths(*a))
+        def ZipErrorIfDifferentLengthsFixed(*a):
+            return tuple(self.support.ZipErrorIfDifferentLengths(*a))
 
         self.assertEqual(
             ZipErrorIfDifferentLengthsFixed(range(2), range(2)),
