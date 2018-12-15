@@ -10,11 +10,14 @@ from product import product
 from itertoolsrecipes import FirstN, LenOfGenerator
 from exceed import UntilExceeded
 
+
 def IsEven(num):
     return IsDivisable(int(num), 2)
 
+
 def IsOdd(num):
     return not IsEven(num)
+
 
 def _MakeNext(func):
     def _Next(num):
@@ -25,8 +28,10 @@ def _MakeNext(func):
 
     return _Next
 
+
 NextEven = _MakeNext(IsEven)
 NextOdd = _MakeNext(IsOdd)
+
 
 def IsDivisable(numerator, denominator):
     '''Encapsulate division by zero error in this one place.
@@ -36,8 +41,9 @@ def IsDivisable(numerator, denominator):
     except ZeroDivisionError:
         return False
 
-#--------------------------------
+
 FIRST_PRIME = 2
+
 
 class PrimeCollection():
     _cache = []
@@ -45,17 +51,18 @@ class PrimeCollection():
     def __init__(self, cache=None):
         '''"cache" if given is trusted to be accurate.
         '''
-        if cache == None:
+        if cache is None:
             cache = []
 
-        #a list accepted from somewhere else is mutable and may be changed later affecting this data so tupling it first
+        # a list accepted from somewhere else is mutable and may be changed
+        # later affecting this data so tupling it first
         cache = list(tuple(cache))
 
-        #save cache only if it is larger than the current one
+        # save cache only if it is larger than the current one
         if len(self._cache) < len(cache):
             self._cache = cache
 
-        #setup next
+        # setup next
         if self.last:
             number = NextOdd(self.last)
         else:
@@ -81,15 +88,18 @@ class PrimeCollection():
 
     def _AddToCache(self, number):
         '''Ensure that multiple threads working at the same time cannot fail.
-        May want to consider a set type, to totally avoid the possiblity of duplicates.
+        May want to consider a set type,
+        to totally avoid the possiblity of duplicates.
         '''
-        if self.last == None or self.last < number:
+        if self.last is None or self.last < number:
             self._cache.append(number)
 
     def __iter__(self):
-        '''All primes 2 and up, iterating through collected ones then generating new ones.
+        '''All primes 2 and up, iterating through collected ones then
+        generating new ones.
 
-        Always yields full list (until stopped), uses cached calculated values where available.
+        Always yields full list (until stopped), uses cached calculated values
+        where available.
         '''
         def NewPrimes():
             while True:
@@ -98,13 +108,15 @@ class PrimeCollection():
         return itertools.chain(self.cache, NewPrimes())
 
     def __next__(self):
-        '''If working from cache the next tried number will always be the next odd number after the last in the cache.
+        '''If working from cache the next tried number will always be the next
+        odd number after the last in the cache.
 
         Works on the principle of http://en.wikipedia.org/wiki/Trial_division
         '''
 
         def PossiblyFindFactor(num):
-            '''Should not be run until squareRoot variable is initialised from outside this method.
+            '''Should not be run until squareRoot variable is initialised
+            from outside this method.
             '''
             return num <= squareRoot
 
@@ -114,7 +126,6 @@ class PrimeCollection():
                 if IsDivisable(n, prime):
                     break
             else:
-                #self._collection.append(n)
                 self._AddToCache(n)
                 return n
 
@@ -130,11 +141,14 @@ class PrimeCollection():
 
         return lastPrime
 
+
 def PrimesFirstN(numberOfPrimes):
     return FirstN(PrimeCollection(), numberOfPrimes)
 
+
 def NthPrime(nthPrime):
     return PrimeCollection()[nthPrime]
+
 
 def IsPrime(number):
     '''Doesn't require PrimeFactors.
@@ -151,13 +165,16 @@ def IsPrime(number):
     else:
         return False
 
+
 def PrimeFactors(number):
     '''Return is in sorted order.
     If the length of the return is 1 it indicates the number is prime.
     '''
     number = int(number)
     if number < FIRST_PRIME:
-        raise ValueError('Lowest allowed number is %d, %r rejected.' % (FIRST_PRIME, number))
+        raise ValueError(
+            'Lowest allowed number is %d, %r rejected.' % (
+                FIRST_PRIME, number))
 
     for prime in PrimeCollection():
         while IsDivisable(number, prime):
@@ -166,6 +183,7 @@ def PrimeFactors(number):
 
         if number == 1:
             break
+
 
 def PrimeFactorsWithoutDuplicates(number):
     '''Takes advantage of the fact that the "PrimeFactors" generator
@@ -178,8 +196,10 @@ def PrimeFactorsWithoutDuplicates(number):
             yield number
             lastNumber = number
 
+
 def CountOfDistinctPrimeFactors(number):
     return LenOfGenerator(PrimeFactorsWithoutDuplicates(number))
+
 
 def PrimeFactorsDict(*numbers):
     output = Counter()
@@ -193,6 +213,7 @@ def PrimeFactorsDict(*numbers):
                 output[primeFactor] += 1
 
     return output
+
 
 def Factors(number):
     '''Sorted order with no duplicates.
@@ -209,22 +230,30 @@ def Factors(number):
 
     yield 1
     if number != 1:
-        for item in sorted(set(map(product, CombinationsWithDuplicates(PrimeFactors(number))))):
+        for item in sorted(set(map(
+                product,
+                CombinationsWithDuplicates(PrimeFactors(number))))):
             yield item
 
+
 def HighestFactors(numbers):
-    '''Similar to an intersection of the sets of the prime factors of each of the numbers in a sequence.
-    Returns a dictionary containing as it's keys all the applicable prime factors and 
-    the values indicate the largest amount of them contained as factors within a single number from the sequence.
+    '''Similar to an intersection of the sets of the prime factors of each of
+    the numbers in a sequence.
+    Returns a dictionary containing as it's keys all the applicable
+    prime factors and the values indicate the largest amount of them contained
+    as factors within a single number from the sequence.
     '''
-    #"or_" means the the union operator in this context.
+    # "or_" means the the union operator in this context.
     return reduce(or_, map(PrimeFactorsDict, numbers), Counter())
+
 
 def FactorDictToNumber(factorDict):
     return product(key ** value for key, value in factorDict.items())
 
+
 def LeastCommonMultiple(numbers):
     return FactorDictToNumber(HighestFactors(numbers))
+
 
 if __name__ == "__main__":
     print('Prime Generator')
@@ -233,9 +262,10 @@ if __name__ == "__main__":
 
     def PrintPrimes():
         for prime in PrimeCollection():
-            #print(prime, len(PrimeCollection()))
             print(prime)
-            #seems to be the same tempo as: The Beatles - The White Album - Honey Pie and Nightwish - Angels Fall First - Elvenpath
+            # seems to be the same tempo as:
+            # The Beatles - The White Album - Honey Pie and
+            # Nightwish - Angels Fall First - Elvenpath
             sleep(0.42)
 
     import threading
@@ -246,5 +276,5 @@ if __name__ == "__main__":
     print('\nPress Enter to Exit:')
     t.start()
 
-    #keep the window open
+    # keep the window open
     input()

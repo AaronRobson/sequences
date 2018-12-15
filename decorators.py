@@ -1,6 +1,7 @@
 '''Taken from: wiki.python.org/moin/PythonDecoratorLibrary
 '''
 
+
 class memoised(object):
     '''Decorator that caches a function's return value each time it is called.
     If called later with the same arguments, the cached value is returned, and
@@ -33,8 +34,11 @@ class memoised(object):
         '''
         return functools.partial(self.__call__, obj)
 
-#Alternate U.S. spelling.
+
+# Alternate U.S. spelling.
 memoized = memoised
 
 if __name__ == "__main__":
-    print('Decorators:\nThis is a supporting module which cannot be used directly.')
+    print(
+        'Decorators:\n' +
+        'This is a supporting module which cannot be used directly.')

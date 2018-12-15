@@ -15,7 +15,9 @@ class TestHexagonalNumber(unittest.TestCase):
 class TestHexagonalNumbers(unittest.TestCase):
 
     def test(self):
-        self.assertEqual(list(take(10, hn.HexagonalNumbers())), [1, 6, 15, 28, 45, 66, 91, 120, 153, 190])
+        self.assertEqual(
+            list(take(10, hn.HexagonalNumbers())),
+            [1, 6, 15, 28, 45, 66, 91, 120, 153, 190])
 
 
 class TestIsHexagonalNumber(unittest.TestCase):

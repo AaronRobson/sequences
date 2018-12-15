@@ -4,6 +4,7 @@ try:
     from itertools import accumulate
 except ImportError:
     import operator
+
     # https://docs.python.org/3.8/library/itertools.html#itertools.accumulate
     def accumulate(iterable, func=operator.add):
         'Return running totals'
@@ -26,6 +27,7 @@ except ImportError:
 
 from exceed import UntilExceeded
 
+
 def TriangleNumber(n):
     '''Does floor division to convert from float to int.
     Otherwise answers are floats which are exactly the same as integers.
@@ -33,12 +35,15 @@ def TriangleNumber(n):
     n = int(n)
     return n*(n+1) // 2
 
+
 def TriangleNumberAlt(n):
     return sum(range(1, n+1))
 
+
 def TriangleNumbers():
-    #return map(TriangleNumber, count(1))
+    # return map(TriangleNumber, count(1))
     return accumulate(count(1))
+
 
 def IsTriangleNumber(number):
     last = None
@@ -47,6 +52,7 @@ def IsTriangleNumber(number):
         last = num
 
     return number == last
+
 
 if __name__ == "__main__":
     from time import sleep

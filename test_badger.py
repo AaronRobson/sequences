@@ -5,6 +5,7 @@ import unittest
 import badger
 from itertoolsrecipes import take
 
+
 class TestBadger(unittest.TestCase):
 
     def testCycling(self):

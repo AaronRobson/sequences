@@ -15,7 +15,9 @@ class TestTriangleNumber(unittest.TestCase):
 class TestTriangularNumbers(unittest.TestCase):
 
     def test(self):
-        self.assertEqual(list(take(10, tn.TriangleNumbers())), [1, 3, 6, 10, 15, 21, 28, 36, 45, 55])
+        self.assertEqual(
+            list(take(10, tn.TriangleNumbers())),
+            [1, 3, 6, 10, 15, 21, 28, 36, 45, 55])
 
 
 class TestIsTriangleNumber(unittest.TestCase):

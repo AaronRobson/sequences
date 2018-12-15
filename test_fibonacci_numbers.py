@@ -16,11 +16,13 @@ class TestFibonacciNumbers(unittest.TestCase):
         self.assertEqual(fibonacci_numbers.FibonacciNumber(2), 1)
         self.assertEqual(fibonacci_numbers.FibonacciNumber(3), 2)
         self.assertEqual(fibonacci_numbers.FibonacciNumber(4), 3)
-        #...
+        # ...
         self.assertEqual(fibonacci_numbers.FibonacciNumber(12), 144)
 
-    def testFibonacciNumbers(self):
-        self.assertEqual(tuple(fibonacci_numbers.FibonacciNumbers(10)), (0,1,1,2,3,5,8,13,21,34), 'FibonacciNumbers Fail: incorrect within first 10.')
+    def testFirst10FibonacciNumbers(self):
+        self.assertEqual(
+            tuple(fibonacci_numbers.FibonacciNumbers(10)),
+            (0, 1, 1, 2, 3, 5, 8, 13, 21, 34))
 
 
 if __name__ == "__main__":

@@ -1,17 +1,20 @@
 from itertoolsrecipes import take
 from decorators import memoised
 
+
 def _Fibonacci():
     a, b = 0, 1
     while True:
         yield a
         a, b = b, a + b
 
+
 def FibonacciNumbers(n=None):
     if n is not None:
         return take(n, _Fibonacci())
     else:
         return _Fibonacci()
+
 
 @memoised
 def FibonacciNumber(num):
@@ -25,6 +28,7 @@ def FibonacciNumber(num):
         return num
     else:
         return FibonacciNumber(num-2) + FibonacciNumber(num-1)
+
 
 if __name__ == "__main__":
     print('Fibonacci Sequence:\n')

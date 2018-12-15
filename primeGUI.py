@@ -14,11 +14,14 @@ OUTPUT_FILE = 'primelist.txt'
 
 pollingTime = 0.042
 
+
 def ThreadName(action):
     action = str(action)
     return '%s thread %r.' % (action, threading.current_thread().name)
 
+
 prw = pr.PrintRewritable()
+
 
 class PrimeGUI():
     def __init__(self, *args):
@@ -69,55 +72,38 @@ class PrimeGUI():
 
     lastPrime = property(_LastPrime)
 
-    #def isFinishing(self, *a):
-    #    return not self.isContinuing()
-
     def isContinuing(self, *a):
         return not self._queuingFinished
 
     def _PrimeFinder(self):
-        #print(ThreadName('Starting'))
-
         for primeNum in itertools.takewhile(self.isContinuing, self._pc):
             pass
-
-        #print(ThreadName('Stopping'))
 
     def _DisplayThread(self):
         '''Check queue for messages, if queue has something in it,
         will check it again and again until it does not as which point:
         it will wait for a bit and try again.
         '''
-        #print(ThreadName('Starting'))
-
         while self.isContinuing():
             prw.Print(self.lastPrime, True)
 
-            #So it does not use excessive CPU.
+            # So it does not use excessive CPU.
             sleep(pollingTime)
-
-        #print(ThreadName('Stopping'))
 
     def __len__(self):
         return len(self._pc)
 
-    #import pickle
     def _SaveEnumerationToFile(self, filepath, *outputEnumeration):
         with open(filepath, mode='w') as f:
             for item in outputEnumeration:
                 f.write('%s\n' % item)
 
-        #with open(filepath, mode='wb') as f:
-        #    pickle.dump(outputEnumeration, f)
-
     def _LoadEnumerationFromFile(self, filepath):
         with open(filepath, mode='r') as f:
             strippedLines = (line.strip() for line in f.readlines())
-            #if statement makes it so blank lines are ignored
+            # if statement makes it so blank lines are ignored
             return (int(line) for line in strippedLines if line)
 
-        #with open(filepath, mode='rb') as f:
-        #    return pickle.load(f)
 
 if __name__ == "__main__":
     print('Prime number finder:')
@@ -130,13 +116,17 @@ if __name__ == "__main__":
     except IOError:
         print('No data found starting from stratch.')
 
-    #Have to be separate because of the printrewritable functionality
+    # Have to be separate because of the printrewritable functionality
     print('Hit Enter to finish and save.')
     p.Start()
     input()
     p.Stop()
 
-    print('\n%d highest prime\n%d found\nAttempting to save file to %r, this may take a while.' % (p.lastPrime, len(p), OUTPUT_FILE))
+    print(
+        '\n%d highest prime' +
+        '\n%d found' +
+        '\nAttempting to save file to %r, this may take a while.' % (
+            p.lastPrime, len(p), OUTPUT_FILE))
 
     try:
         p.Save(OUTPUT_FILE)
@@ -146,8 +136,8 @@ if __name__ == "__main__":
         print('File saved successfully.')
 
     if USER_MUST_CLOSE:
-        #Clear memory if waiting for user, rather than closing immediately.
+        # Clear memory if waiting for user, rather than closing immediately.
         del(p)
 
-        #keep the window open
+        # keep the window open
         input('\nPress Enter to Exit:')

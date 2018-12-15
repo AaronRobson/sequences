@@ -5,6 +5,7 @@ try:
     from itertools import accumulate
 except ImportError:
     import operator
+
     # https://docs.python.org/3.8/library/itertools.html#itertools.accumulate
     def accumulate(iterable, func=operator.add):
         'Return running totals'
@@ -25,22 +26,28 @@ try:
 except ImportError:
     pass
 
-#http://en.wikipedia.org/wiki/Harmonic_number
+# http://en.wikipedia.org/wiki/Harmonic_number
+
 
 def Reciprocal(number):
     return Fraction(1, number)
 
+
 fractionExample = Fraction(2, 3)
 assert Reciprocal(Reciprocal(fractionExample)) == fractionExample
+
 
 def StrictlyPositiveIntegers():
     return count(1)
 
+
 def StrictlyPositiveReciprocals():
     return map(Reciprocal, StrictlyPositiveIntegers())
 
+
 def AccumulatedStrictlyPositiveReciprocals():
     return accumulate(StrictlyPositiveReciprocals())
+
 
 HarmonicNumbers = AccumulatedStrictlyPositiveReciprocals
 
