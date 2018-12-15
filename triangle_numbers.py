@@ -21,7 +21,8 @@ except ImportError:
             yield total
 
 try:
-    from itertools import imap as map
+    from itertools import imap
+    map = imap
 except ImportError:
     pass
 
