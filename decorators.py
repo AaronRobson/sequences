@@ -32,8 +32,3 @@ class memoised(object):
 
 # Alternate U.S. spelling.
 memoized = memoised
-
-if __name__ == "__main__":
-    print(
-        'Decorators:\n' +
-        'This is a supporting module which cannot be used directly.')

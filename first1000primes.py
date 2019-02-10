@@ -4,5 +4,3 @@ from prime import PrimesFirstN
 
 for p in PrimesFirstN(1000):
     print(p)
-
-input('\nPress Enter to Exit.')

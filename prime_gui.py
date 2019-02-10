@@ -8,8 +8,6 @@ import prime
 
 import itertools
 
-USER_MUST_CLOSE = True
-
 OUTPUT_FILE = 'primelist.txt'
 
 pollingTime = 0.042
@@ -134,10 +132,3 @@ if __name__ == "__main__":
         print('File failed to save.')
     else:
         print('File saved successfully.')
-
-    if USER_MUST_CLOSE:
-        # Clear memory if waiting for user, rather than closing immediately.
-        del(p)
-
-        # keep the window open
-        input('\nPress Enter to Exit:')

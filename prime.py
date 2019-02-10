@@ -275,6 +275,4 @@ if __name__ == "__main__":
 
     print('\nPress Enter to Exit:')
     t.start()
-
-    # keep the window open
     input()

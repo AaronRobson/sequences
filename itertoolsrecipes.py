@@ -166,7 +166,3 @@ def AreConsecutive(items):
             for item, expected in zip(
                 chain([firstValue], items),
                 count(firstValue)))
-
-
-if __name__ == "__main__":
-    print('Itertools Recipes:')
