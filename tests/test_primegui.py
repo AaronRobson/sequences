@@ -1,6 +1,6 @@
 
 import unittest
-from primeGUI import PrimeGUI
+from prime_gui import PrimeGUI
 
 
 class TestPrimeGUI(unittest.TestCase):
