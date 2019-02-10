@@ -17,10 +17,7 @@ def BadgerMushroomSnakeGenerator():
     return cycle(full)
 
 
-def PrintBadger(timeBetween=None):
-    if timeBetween is None:
-        timeBetween = 0
-
+def PrintBadger(timeBetween=0):
     for line in BadgerMushroomSnakeGenerator():
         print(line)
         sleep(timeBetween)
