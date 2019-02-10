@@ -157,7 +157,3 @@ class TestPrime(unittest.TestCase):
             self.support.LeastCommonMultiple(range(1, 20+1)),
             232792560,
             'LeastCommonMultiple Fail: 1 to 20.')
-
-
-if __name__ == "__main__":
-    unittest.main()

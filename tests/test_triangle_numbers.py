@@ -27,7 +27,3 @@ class TestIsTriangleNumber(unittest.TestCase):
 
     def testNegative(self):
         self.assertFalse(tn.IsTriangleNumber(16))
-
-
-if __name__ == "__main__":
-    unittest.main()

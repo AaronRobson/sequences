@@ -164,7 +164,3 @@ class TestFirstNClass(unittest.TestCase):
         self.assertFalse(
             self.support.LenOfGeneratorIsNotLessThan(range(5), 6),
             'Less than')
-
-
-if __name__ == "__main__":
-    unittest.main()

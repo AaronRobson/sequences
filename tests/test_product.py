@@ -12,7 +12,3 @@ class TestProduct(unittest.TestCase):
 
     def testOneToFive(self):
         self.assertEqual(product(range(1, 4+1)), 24)
-
-
-if __name__ == "__main__":
-    unittest.main()

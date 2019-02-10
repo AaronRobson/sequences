@@ -13,7 +13,3 @@ class TestBadger(unittest.TestCase):
         firstLoop = take(len(badger.full), gen)
         secondLoop = take(len(badger.full), gen)
         self.assertEqual(firstLoop, secondLoop)
-
-
-if __name__ == "__main__":
-    unittest.main()

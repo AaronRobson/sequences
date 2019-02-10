@@ -13,7 +13,3 @@ class TestMemoise(unittest.TestCase):
             return x + 1
         self.assertEqual(f(1), 2)
         self.assertEqual(f(1), 2)
-
-
-if __name__ == "__main__":
-    unittest.main()

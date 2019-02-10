@@ -23,7 +23,3 @@ class TestHarmonicNumbers(unittest.TestCase):
             Fraction('7381/2520'),
         ]
         self.assertEqual(list(take(10, tn.HarmonicNumbers())), expected)
-
-
-if __name__ == "__main__":
-    unittest.main()

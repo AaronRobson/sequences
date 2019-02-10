@@ -27,7 +27,3 @@ class TestIsHexagonalNumber(unittest.TestCase):
 
     def testNegative(self):
         self.assertFalse(hn.IsHexagonalNumber(46))
-
-
-if __name__ == "__main__":
-    unittest.main()
