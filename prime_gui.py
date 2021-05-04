@@ -120,11 +120,10 @@ if __name__ == "__main__":
     input()
     p.Stop()
 
-    print(
-        '\n%d highest prime' +
-        '\n%d found' +
-        '\nAttempting to save file to %r, this may take a while.' % (
-            p.lastPrime, len(p), OUTPUT_FILE))
+    print()
+    print('%d highest prime' % (p.lastPrime))
+    print('%d found' % (len(p)))
+    print('Attempting to save file to %r, this may take a while.' % (OUTPUT_FILE))
 
     try:
         p.Save(OUTPUT_FILE)
