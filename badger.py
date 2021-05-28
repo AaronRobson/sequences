@@ -10,18 +10,18 @@ snakes = ('snake a snake oh it\'s a snake',)
 full = ((badgers + mushrooms) * 4) + badgers + snakes
 
 
-def BadgerMushroomSnakeGenerator():
+def badger_mushroom_snake_generator():
     '''Based on the Weebl looping animated video "Badgers":
     https://en.wikipedia.org/wiki/Badgers_(animation)
     '''
     return cycle(full)
 
 
-def PrintBadger(timeBetween=0):
-    for line in BadgerMushroomSnakeGenerator():
+def print_badger(time_between=0):
+    for line in badger_mushroom_snake_generator():
         print(line)
-        sleep(timeBetween)
+        sleep(time_between)
 
 
 if __name__ == "__main__":
-    PrintBadger(0.42)
+    print_badger(0.42)

@@ -8,8 +8,8 @@ from itertoolsrecipes import take
 
 class TestBadger(unittest.TestCase):
 
-    def testCycling(self):
-        gen = badger.BadgerMushroomSnakeGenerator()
-        firstLoop = take(len(badger.full), gen)
-        secondLoop = take(len(badger.full), gen)
-        self.assertEqual(firstLoop, secondLoop)
+    def test_cycling(self):
+        gen = badger.badger_mushroom_snake_generator()
+        first_loop = take(len(badger.full), gen)
+        second_loop = take(len(badger.full), gen)
+        self.assertEqual(first_loop, second_loop)

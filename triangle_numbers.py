@@ -1,35 +1,9 @@
-from itertools import count
+from itertools import accumulate, count
 
-try:
-    from itertools import accumulate
-except ImportError:
-    import operator
-
-    # https://docs.python.org/3.8/library/itertools.html#itertools.accumulate
-    def accumulate(iterable, func=operator.add):
-        'Return running totals'
-        # accumulate([1,2,3,4,5]) --> 1 3 6 10 15
-        # accumulate([1,2,3,4,5], operator.mul) --> 1 2 6 24 120
-        it = iter(iterable)
-        try:
-            total = next(it)
-        except StopIteration:
-            return
-        yield total
-        for element in it:
-            total = func(total, element)
-            yield total
-
-try:
-    from itertools import imap
-    map = imap
-except ImportError:
-    pass
-
-from exceed import UntilExceeded
+from exceed import until_exceeded
 
 
-def TriangleNumber(n):
+def triangle_number(n):
     '''Does floor division to convert from float to int.
     Otherwise answers are floats which are exactly the same as integers.
     '''
@@ -37,19 +11,19 @@ def TriangleNumber(n):
     return n*(n+1) // 2
 
 
-def TriangleNumberAlt(n):
+def triangle_number_alt(n):
     return sum(range(1, n+1))
 
 
-def TriangleNumbers():
-    # return map(TriangleNumber, count(1))
+def triangle_numbers():
+    # return map(triangle_number, count(1))
     return accumulate(count(1))
 
 
-def IsTriangleNumber(number):
+def is_triangle_number(number):
     last = None
 
-    for num in UntilExceeded(number, TriangleNumbers()):
+    for num in until_exceeded(number, triangle_numbers()):
         last = num
 
     return number == last
@@ -60,6 +34,6 @@ if __name__ == "__main__":
 
     print('Triangle Numbers (Ctrl-C to Exit):')
 
-    for tNum in TriangleNumbers():
-        print(tNum)
+    for t_num in triangle_numbers():
+        print(t_num)
         sleep(0.42)
