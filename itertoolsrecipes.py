@@ -18,7 +18,7 @@ class DifferentLengthsError(IndexError):
     pass
 
 
-def FirstN(generator, n=None):
+def first_n(generator, n=None):
     '''Developed from: http://wiki.python.org/moin/Generators
     http://linuxgazette.net/100/pramode.html
     '''
@@ -32,15 +32,15 @@ def FirstN(generator, n=None):
         return generator
 
 
-def SkipFirstN(generator, n=None):
+def skip_first_n(generator, n=None):
     return islice(generator, n, None)
 
 
-def NthTerm(generator, n=None):
+def nth_term(generator, n=None):
     if (n is not None) and (n < 0):
         raise ValueError('Index must be above zero; %r is invalid.' % (n))
 
-    for item in FirstN(generator, n):
+    for item in first_n(generator, n):
         value = item
 
     # "value" should have a value otherwise "FirstN" would have
@@ -48,19 +48,19 @@ def NthTerm(generator, n=None):
     return value
 
 
-def NthTermZeroBased(generator, n=None):
+def nth_term_zero_based(generator, n=None):
     if n is not None:
         if n <= 0:
             raise ValueError(
                 'Index must be zero or above; %r is invalid.' % (n))
         else:
-            return NthTerm(generator, n+1)
+            return nth_term(generator, n+1)
     else:
         assert n is None
-        return NthTerm(generator, n)
+        return nth_term(generator, n)
 
 
-def ZipErrorIfDifferentLengths(*collections):
+def zip_error_if_different_lengths(*collections):
     iterators = tuple(map(iter, collections))
 
     while True:
@@ -70,15 +70,15 @@ def ZipErrorIfDifferentLengths(*collections):
             try:
                 output.append(next(iterator))
             except StopIteration:
-                newEnded = True
+                new_ended = True
             else:
-                newEnded = False
+                new_ended = False
 
-            if (ended is not None) and (ended != newEnded):
+            if (ended is not None) and (ended != new_ended):
                 raise DifferentLengthsError(
                     'The iterations are of unequal lengths.')
 
-            ended = newEnded
+            ended = new_ended
 
         if ended:
             break
@@ -86,7 +86,7 @@ def ZipErrorIfDifferentLengths(*collections):
         yield tuple(output)
 
 
-def ItemsEqual(*items):
+def items_equal(*items):
     if items:
         first = items[0]
         others = items[1:]
@@ -95,19 +95,19 @@ def ItemsEqual(*items):
         return True
 
 
-def CollectionsEqual(*collections):
+def collections_equal(*collections):
     if collections:
         try:
             return all(
-                ItemsEqual(*items)
-                for items in ZipErrorIfDifferentLengths(*collections))
+                items_equal(*items)
+                for items in zip_error_if_different_lengths(*collections))
         except DifferentLengthsError:
             return False
     else:
         return True
 
 
-def LenOfGenerator(gen):
+def len_of_generator(gen):
     '''Will use up the generator, use itertools.tee to make independently
     usable copies beforehand if required.
 
@@ -117,52 +117,52 @@ def LenOfGenerator(gen):
     return sum(1 for _ in gen)
 
 
-def LenOfGeneratorIsNotLessThan(gen, minimumLen):
+def len_of_generator_is_not_less_than(gen, minimum_len):
     '''The idea being to save resources by allowing generators to terminate earlier
     when the length is known to be enough for some purpose.
     '''
-    MIN_LEN = 0
-    if minimumLen < MIN_LEN:
+    min_len = 0
+    if minimum_len < min_len:
         raise ValueError(
-            'Length must be at least %r, %r rejected.' % (MIN_LEN, minimumLen))
+            'Length must be at least %r, %r rejected.' % (min_len, minimum_len))
 
-    if minimumLen == MIN_LEN:
+    if minimum_len == min_len:
         return True
 
-    for currentLen, item in enumerate(gen, 1):
-        if minimumLen <= currentLen:
+    for current_len, item in enumerate(gen, 1):
+        if minimum_len <= current_len:
             return True
     else:
         return False
 
 
 # testing an idea for showing the surrounding padding
-def RollingCollection(items, sampleSize, pad=0, padValue=None):
-    if sampleSize < 1:
+def rolling_collection(items, sample_size, pad=0, pad_value=None):
+    if sample_size < 1:
         raise ValueError('Sample Size must be at least 1.')
 
     if pad < 0:
         raise ValueError('Padding should be at least 0.')
 
-    paddingItems = (padValue,) * pad
-    items = chain(paddingItems, items, paddingItems)
+    padding_items = (pad_value,) * pad
+    items = chain(padding_items, items, padding_items)
 
     items = tuple(items)
 
-    for i in range(len(items)-sampleSize+1):
-        yield items[i:i+sampleSize]
+    for i in range(len(items)-sample_size+1):
+        yield items[i:i+sample_size]
 
 
-def AreConsecutive(items):
+def are_consecutive(items):
     items = iter(items)
 
     try:
-        firstValue = next(items)
+        first_value = next(items)
     except StopIteration:
         return True
     else:
         return all(
             item == expected
             for item, expected in zip(
-                chain([firstValue], items),
-                count(firstValue)))
+                chain([first_value], items),
+                count(first_value)))

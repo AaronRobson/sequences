@@ -1,13 +1,13 @@
 from itertools import takewhile
 
 
-def DoesNotExceed(limit):
+def does_not_exceed(limit):
     return lambda x: x <= limit
 
 
-def UntilExceeded(maxNumber, generator):
-    return takewhile(DoesNotExceed(maxNumber), generator)
+def until_exceeded(max_number, generator):
+    return takewhile(does_not_exceed(max_number), generator)
 
 
-def FilterExceeded(maxNumber, generator):
-    return filter(DoesNotExceed(maxNumber), generator)
+def filter_exceeded(max_number, generator):
+    return filter(does_not_exceed(max_number), generator)

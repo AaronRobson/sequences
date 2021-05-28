@@ -2,22 +2,22 @@ from itertoolsrecipes import take
 from decorators import memoised
 
 
-def _Fibonacci():
+def _fibonacci():
     a, b = 0, 1
     while True:
         yield a
         a, b = b, a + b
 
 
-def FibonacciNumbers(n=None):
+def fibonacci_numbers(n=None):
     if n is not None:
-        return take(n, _Fibonacci())
+        return take(n, _fibonacci())
     else:
-        return _Fibonacci()
+        return _fibonacci()
 
 
 @memoised
-def FibonacciNumber(num):
+def fibonacci_number(num):
     '''Recursive definition from:
     http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/video-lectures/1b-procedures-and-processes-substitution-model/
     '''
@@ -27,14 +27,14 @@ def FibonacciNumber(num):
     if num < 2:
         return num
     else:
-        return FibonacciNumber(num-2) + FibonacciNumber(num-1)
+        return fibonacci_number(num-2) + fibonacci_number(num-1)
 
 
 if __name__ == "__main__":
     print('Fibonacci Sequence:\n')
 
     print('First Few:')
-    for num in FibonacciNumbers(13):
+    for num in fibonacci_numbers(13):
         print(num)
 
     print()
@@ -42,6 +42,6 @@ if __name__ == "__main__":
     from time import sleep
 
     print('Infinite (Ctrl-C to exit):')
-    for num in FibonacciNumbers():
+    for num in fibonacci_numbers():
         print(num)
         sleep(.42)

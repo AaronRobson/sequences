@@ -22,4 +22,4 @@ class TestHarmonicNumbers(unittest.TestCase):
             Fraction('7129/2520'),
             Fraction('7381/2520'),
         ]
-        self.assertEqual(list(take(10, tn.HarmonicNumbers())), expected)
+        self.assertEqual(list(take(10, tn.harmonic_numbers())), expected)

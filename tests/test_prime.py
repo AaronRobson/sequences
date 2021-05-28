@@ -3,8 +3,8 @@
 import unittest
 import prime
 
-oddNum = 3
-evenNum = 12
+odd_num = 3
+even_num = 12
 
 
 class TestSupport(unittest.TestCase):
@@ -12,25 +12,25 @@ class TestSupport(unittest.TestCase):
     def setUp(self):
         self.support = prime
 
-    def testIsEvenAndOdd(self):
-        self.assertTrue(self.support.IsEven(evenNum), '')
-        self.assertFalse(self.support.IsEven(oddNum), '')
+    def test_is_even_and_odd(self):
+        self.assertTrue(self.support.is_even(even_num), '')
+        self.assertFalse(self.support.is_even(odd_num), '')
 
-        self.assertFalse(self.support.IsOdd(evenNum), '')
-        self.assertTrue(self.support.IsOdd(oddNum), '')
+        self.assertFalse(self.support.is_odd(even_num), '')
+        self.assertTrue(self.support.is_odd(odd_num), '')
 
-    def testNextEvenAndOdd(self):
-        self.assertEqual(self.support.NextEven(evenNum), evenNum+2, '')
-        self.assertEqual(self.support.NextEven(oddNum), oddNum+1, '')
+    def test_next_even_and_odd(self):
+        self.assertEqual(self.support.next_even(even_num), even_num+2, '')
+        self.assertEqual(self.support.next_even(odd_num), odd_num+1, '')
 
-        self.assertEqual(self.support.NextOdd(evenNum), evenNum+1, '')
-        self.assertEqual(self.support.NextOdd(oddNum), oddNum+2, '')
+        self.assertEqual(self.support.next_odd(even_num), even_num+1, '')
+        self.assertEqual(self.support.next_odd(odd_num), odd_num+2, '')
 
-    def testIsDivisable(self):
-        self.assertTrue(self.support.IsDivisable(4, 2), '')
-        self.assertFalse(self.support.IsDivisable(3, 2), '')
+    def test_is_divisable(self):
+        self.assertTrue(self.support.is_divisable(4, 2), '')
+        self.assertFalse(self.support.is_divisable(3, 2), '')
         self.assertFalse(
-            self.support.IsDivisable(2, 0),
+            self.support.is_divisable(2, 0),
             'Division by zero should be treated as not divisable.')
 
 
@@ -38,67 +38,67 @@ class TestPrime(unittest.TestCase):
 
     def setUp(self):
         self.support = prime
-        self.firstPrimes = (
+        self.first_primes = (
             2, 3, 5, 7, 11,
             13, 17, 19, 23, 29,
             31, 37, 41, 43, 47,
             53, 59, 61, 67, 71)
 
-    def testPrimeCollection(self):
-        def FirstPrimesTest():
+    def test_prime_collection(self):
+        def first_primes_test():
             for expected, actual in zip(
-                    self.firstPrimes, prime.PrimeCollection()):
+                    self.first_primes, prime.PrimeCollection()):
                 self.assertEqual(expected, actual)
 
             self.assertTrue(
-                len(self.firstPrimes) <= len(prime.PrimeCollection()),
+                len(self.first_primes) <= len(prime.PrimeCollection()),
                 'Number of stored primes not enough to account for the ' +
                 'number that should be correct (zip terminates on shortest' +
                 'collection (the other is infinite though)).')
 
             self.assertEqual(
-                prime.PrimeCollection().cache[:len(self.firstPrimes)],
-                self.firstPrimes,
+                prime.PrimeCollection().cache[:len(self.first_primes)],
+                self.first_primes,
                 'White box testing of the cache inconsistant.')
 
-        FirstPrimesTest()
-        FirstPrimesTest()
+        first_primes_test()
+        first_primes_test()
 
-    def testPrimesFirstN(self):
+    def test_primes_first_n(self):
         self.assertEqual(
-            tuple(self.support.PrimesFirstN(len(self.firstPrimes))),
-            self.firstPrimes)
+            tuple(self.support.primes_first_n(len(self.first_primes))),
+            self.first_primes)
 
-    def testNthPrime(self):
-        self.assertEqual(prime.NthPrime(1), 2)
-        self.assertEqual(prime.NthPrime(2), 3)
-        self.assertEqual(prime.NthPrime(3), 5)
-        self.assertEqual(prime.NthPrime(4), 7)
-        self.assertEqual(prime.NthPrime(5), 11)
-        self.assertEqual(prime.NthPrime(6), 13)
-        self.assertEqual(prime.NthPrime(7), 17)
+    def test_nth_prime(self):
+        self.assertEqual(prime.nth_prime(1), 2)
+        self.assertEqual(prime.nth_prime(2), 3)
+        self.assertEqual(prime.nth_prime(3), 5)
+        self.assertEqual(prime.nth_prime(4), 7)
+        self.assertEqual(prime.nth_prime(5), 11)
+        self.assertEqual(prime.nth_prime(6), 13)
+        self.assertEqual(prime.nth_prime(7), 17)
 
-    def testIsPrime(self):
-        self.assertTrue(self.support.IsPrime(2))
-        self.assertTrue(self.support.IsPrime(13))
+    def test_is_prime(self):
+        self.assertTrue(self.support.is_prime(2))
+        self.assertTrue(self.support.is_prime(13))
 
-        self.assertFalse(self.support.IsPrime(4))
-        self.assertFalse(self.support.IsPrime(42))
+        self.assertFalse(self.support.is_prime(4))
+        self.assertFalse(self.support.is_prime(42))
 
-        self.assertTrue(self.support.IsPrime(1453))
+        self.assertTrue(self.support.is_prime(1453))
 
-    def testPrimeFactors(self):
-        self.assertEqual(tuple(self.support.PrimeFactors(2)), (2,))
+    def test_prime_factors(self):
+        self.assertEqual(tuple(self.support.prime_factors(2)), (2,))
         self.assertEqual(
-            tuple(self.support.PrimeFactors(6)),
+            tuple(self.support.prime_factors(6)),
             (2, 3), 'Factorial factors (of 3!) not found.')
         self.assertEqual(
-            tuple(self.support.PrimeFactors(81)),
+            tuple(self.support.prime_factors(81)),
             (3,)*4,
             'Repeated factors incorrect.')
 
         self.assertEqual(
-            tuple(self.support.PrimeFactors(1453)),
+            tuple(self.support.prime_factors(1453)),
             (1453,),
             'Prime factors of prime number as here:' +
             'http://xkcd.com/247/ incorrect.')
@@ -107,53 +107,52 @@ class TestPrime(unittest.TestCase):
 
         self.assertRaises(
             ValueError,
-            lambda _: tuple(self.support.PrimeFactors(1)),
+            lambda _: tuple(self.support.prime_factors(1)),
             'Too low a number allowed.')
 
-    def testPrimeFactorsWithoutDuplicates(self):
+    def test_prime_factors_without_duplicates(self):
         self.assertEqual(
-            tuple(self.support.PrimeFactorsWithoutDuplicates(6)),
+            tuple(self.support.prime_factors_without_duplicates(6)),
             (2, 3),
             'Factorial factors (of 3!) not found.')
         self.assertEqual(
-            tuple(self.support.PrimeFactorsWithoutDuplicates(81)),
+            tuple(self.support.prime_factors_without_duplicates(81)),
             (3,),
             'Single factor not correctly found.')
 
-    def testCountOfDistinctPrimeFactors(self):
+    def test_count_of_distinct_prime_factors(self):
         self.assertEqual(
-            self.support.CountOfDistinctPrimeFactors(24),
-            2,
-            'CountOfDistinctPrimeFactors Fail: 24.')
+            self.support.count_of_distinct_prime_factors(24),
+            2)
 
-    def testPrimeFactorsDict(self):
+    def test_prime_factors_dict(self):
         self.assertEqual(
-            self.support.PrimeFactorsDict(24),
+            self.support.prime_factors_dict(24),
             {2: 3, 3: 1})
         self.assertEqual(
-            self.support.PrimeFactorsDict(2**2, 3**3),
+            self.support.prime_factors_dict(2**2, 3**3),
             {2: 2, 3: 3},
-            'PrimeFactorsDict Fail: multiple numbers.')
+            'Multiple numbers.')
 
-    def testFactors(self):
+    def test_factors(self):
         self.assertEqual(
-            list(self.support.Factors(60)),
+            list(self.support.factors(60)),
             [1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30, 60])
 
-    def testHighestFactors(self):
+    def test_highest_factors(self):
         self.assertEqual(
-            self.support.HighestFactors([3, 5, 6, 12, 25]),
+            self.support.highest_factors([3, 5, 6, 12, 25]),
             {2: 2, 3: 1, 5: 2})
 
-    def testFactorDictToNumber(self):
-        self.assertEqual(self.support.FactorDictToNumber({2: 3, 3: 1}), 24)
+    def test_factor_dict_to_number(self):
+        self.assertEqual(self.support.factor_dict_to_number({2: 3, 3: 1}), 24)
 
-    def testLeastCommonMultiple(self):
+    def test_least_common_multiple(self):
         self.assertEqual(
-            self.support.LeastCommonMultiple(range(1, 10+1)),
+            self.support.least_common_multiple(range(1, 10+1)),
             2520,
-            'LeastCommonMultiple Fail: 1 to 10.')
+            '1 to 10.')
         self.assertEqual(
-            self.support.LeastCommonMultiple(range(1, 20+1)),
+            self.support.least_common_multiple(range(1, 20+1)),
             232792560,
-            'LeastCommonMultiple Fail: 1 to 20.')
+            '1 to 20.')

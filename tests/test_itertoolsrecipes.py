@@ -8,7 +8,7 @@ itertoolsextras = itertoolsrecipes
 
 class TestTake(unittest.TestCase):
 
-    def testSimple(self):
+    def test_simple(self):
         self.assertEqual(list(itertoolsrecipes.take(3, range(5))), [0, 1, 2])
 
 
@@ -17,150 +17,150 @@ class TestFirstNClass(unittest.TestCase):
         self.support = itertoolsextras
         self.ex = self.support.DifferentLengthsError
 
-    def testFirstN(self):
-        def FirstNFixed(*a):
-            return tuple(self.support.FirstN(*a))
+    def test_first_n(self):
+        def first_n_fixed(*a):
+            return tuple(self.support.first_n(*a))
 
         self.assertEqual(
-            FirstNFixed(range(5), 3),
+            first_n_fixed(range(5), 3),
             tuple(range(3)),
-            'FirstN Fail: within range.')
+            'Within range.')
 
         self.assertEqual(
-            FirstNFixed(range(5), 5),
+            first_n_fixed(range(5), 5),
             tuple(range(5)),
-            'FirstN Fail: just within range.')
+            'Just within range.')
 
         self.assertRaises(
             self.ex,
-            lambda _: FirstNFixed(range(5), 6),
-            'FirstN Fail: just outside range.')
+            lambda _: first_n_fixed(range(5), 6),
+            'Just outside range.')
 
-    def testSkipFirstN(self):
-        def SkipFirstNFixed(*a):
-            return tuple(self.support.SkipFirstN(*a))
+    def test_skip_first_n(self):
+        def skip_first_n_fixed(*a):
+            return tuple(self.support.skip_first_n(*a))
 
         self.assertEqual(
-            SkipFirstNFixed(range(5)),
+            skip_first_n_fixed(range(5)),
             tuple(range(5)),
-            'SkipFirstN Fail: default.')
+            'Default.')
 
         self.assertEqual(
-            SkipFirstNFixed(range(5), 2),
+            skip_first_n_fixed(range(5), 2),
             (2, 3, 4),
-            'SkipFirstN Fail: within range.')
+            'Within range.')
 
         self.assertEqual(
-            SkipFirstNFixed(range(5), 5),
+            skip_first_n_fixed(range(5), 5),
             tuple(),
-            'SkipFirstN Fail: just within range.')
+            'Just within range.')
 
         self.assertEqual(
-            SkipFirstNFixed(range(5), 6),
+            skip_first_n_fixed(range(5), 6),
             tuple(),
-            'SkipFirstN Fail: just outside range.')
+            'Just outside range.')
 
-    def testNthTerm(self):
+    def test_nth_term(self):
         self.assertEqual(
-            self.support.NthTerm(range(10), 10),
+            self.support.nth_term(range(10), 10),
             9,
-            'NthTerm Fail: just within range.')
+            'Just within range.')
 
         self.assertRaises(
             self.ex,
-            lambda _: self.support.NthTerm(range(10), 11),
-            'NthTerm Fail: just out of range.')
+            lambda _: self.support.nth_term(range(10), 11),
+            'Just out of range.')
 
-    def testZipErrorIfDifferentLengths(self):
-        def ZipErrorIfDifferentLengthsFixed(*a):
-            return tuple(self.support.ZipErrorIfDifferentLengths(*a))
+    def test_zip_error_if_different_lengths(self):
+        def zip_error_if_different_lengths(*a):
+            return tuple(self.support.zip_error_if_different_lengths(*a))
 
         self.assertEqual(
-            ZipErrorIfDifferentLengthsFixed(range(2), range(2)),
+            zip_error_if_different_lengths(range(2), range(2)),
             ((0, 0), (1, 1)),
-            'ZipErrorIfDifferentLengths Fail: same length.')
+            'Same length.')
 
         self.assertRaises(
             self.ex,
-            lambda _: ZipErrorIfDifferentLengthsFixed(range(4), range(5)),
-            'ZipErrorIfDifferentLengths Fail: different length.')
+            lambda _: zip_error_if_different_lengths(range(4), range(5)),
+            'Different length.')
 
-    def testItemsEqual(self):
+    def test_items_equal(self):
         self.assertTrue(
-            self.support.ItemsEqual(), 'ItemsEqual Fail: Empty.')
+            self.support.items_equal(), 'Empty.')
         self.assertTrue(
-            self.support.ItemsEqual(1, 1, 1), 'ItemsEqual Fail: Same.')
+            self.support.items_equal(1, 1, 1), 'Same.')
         self.assertFalse(
-            self.support.ItemsEqual(1, 2, 2), 'ItemsEqual Fail: Different.')
+            self.support.items_equal(1, 2, 2), 'Different.')
 
-    def testCollectionsEqual(self):
+    def test_collections_equal(self):
         self.assertTrue(
-            self.support.CollectionsEqual(), 'CollectionsEqual Fail: Empty.')
+            self.support.collections_equal(), 'Empty.')
         self.assertTrue(
-            self.support.CollectionsEqual(range(5), range(5), range(5)),
-            'CollectionsEqual Fail: Same.')
+            self.support.collections_equal(range(5), range(5), range(5)),
+            'Same.')
         self.assertFalse(
-            self.support.CollectionsEqual(range(4), range(4), range(5)),
-            'CollectionsEqual Fail: Different.')
+            self.support.collections_equal(range(4), range(4), range(5)),
+            'Different.')
 
-    def testCombo(self):
+    def test_combo(self):
         self.assertTrue(
-            self.support.CollectionsEqual(
-                self.support.FirstN(range(10), 5), range(5)))
+            self.support.collections_equal(
+                self.support.first_n(range(10), 5), range(5)))
 
-    def testLenOfGenerator(self):
+    def test_len_of_generator(self):
         for i in range(1, 10+1):
             self.assertEqual(
-                self.support.LenOfGenerator(range(i)),
+                self.support.len_of_generator(range(i)),
                 i,
-                'LenOfGenerator Fail: on length of %d.' % (i))
+                'On length of %d.' % (i))
 
-    def testRollingCollection(self):
+    def test_rolling_collection(self):
         self.assertEqual(
-            tuple(self.support.RollingCollection([], 5)),
+            tuple(self.support.rolling_collection([], 5)),
             tuple(),
-            'RollingCollection Fail: null case.')
+            'Null case.')
         self.assertEqual(
-            tuple(self.support.RollingCollection(range(4), 5)),
+            tuple(self.support.rolling_collection(range(4), 5)),
             tuple(),
-            'RollingCollection Fail: squeezed out case.')
+            'Squeezed out case.')
         self.assertEqual(
-            tuple(self.support.RollingCollection(range(5), 5)),
+            tuple(self.support.rolling_collection(range(5), 5)),
             (tuple(range(5)),),
-            'RollingCollection Fail: single roll.')
+            'Single roll.')
         self.assertEqual(
-            tuple(self.support.RollingCollection(range(6), 5)),
+            tuple(self.support.rolling_collection(range(6), 5)),
             (tuple(range(5)), tuple(range(1, 6))),
-            'RollingCollection Fail: two rolls.')
+            'Two rolls.')
         self.assertEqual(
-            tuple(self.support.RollingCollection(range(6), 5, pad=1)),
+            tuple(self.support.rolling_collection(range(6), 5, pad=1)),
             (
                 (None, 0, 1, 2, 3),
                 tuple(range(5)),
                 tuple(range(1, 6)), (2, 3, 4, 5, None)
             ),
-            'RollingCollection Fail with padding.')
+            'With padding.')
 
-    def testAreConsecutive(self):
-        self.assertTrue(self.support.AreConsecutive([]), 'Null case.')
-        self.assertTrue(self.support.AreConsecutive([1]), 'Single element.')
-        self.assertTrue(self.support.AreConsecutive([1, 2]), 'Ordered pair.')
+    def test_are_consecutive(self):
+        self.assertTrue(self.support.are_consecutive([]), 'Null case.')
+        self.assertTrue(self.support.are_consecutive([1]), 'Single element.')
+        self.assertTrue(self.support.are_consecutive([1, 2]), 'Ordered pair.')
         self.assertFalse(
-            self.support.AreConsecutive([2, 1]), 'Unordered pair.')
+            self.support.are_consecutive([2, 1]), 'Unordered pair.')
 
-    def testLenOfGeneratorIsNotLessThan(self):
+    def test_len_of_generator_is_not_less_than(self):
         self.assertTrue(
-            self.support.LenOfGeneratorIsNotLessThan([], 0),
+            self.support.len_of_generator_is_not_less_than([], 0),
             'Null case allowable.')
         self.assertFalse(
-            self.support.LenOfGeneratorIsNotLessThan([], 1),
+            self.support.len_of_generator_is_not_less_than([], 1),
             'Null case disallowable.')
         self.assertTrue(
-            self.support.LenOfGeneratorIsNotLessThan(range(5), 4),
+            self.support.len_of_generator_is_not_less_than(range(5), 4),
             'More than.')
         self.assertTrue(
-            self.support.LenOfGeneratorIsNotLessThan(range(5), 5),
+            self.support.len_of_generator_is_not_less_than(range(5), 5),
             'Same as.')
         self.assertFalse(
-            self.support.LenOfGeneratorIsNotLessThan(range(5), 6),
+            self.support.len_of_generator_is_not_less_than(range(5), 6),
             'Less than')
